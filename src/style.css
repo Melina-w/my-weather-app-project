@@ -1,0 +1,70 @@
+.search {
+  padding: 20px 10px;
+  border: 2px solid #000;
+  border-radius: 30px;
+  width: 50%;
+  background-color: #b3a5b3;
+}
+
+.search input {
+  border: 0;
+  padding: 0;
+  width: calc(100% - 21px);
+  background-color: transparent;
+}
+
+.search input:focus {
+  outline: none;
+}
+.weather-details {
+  font-size: 20px;
+}
+
+.selected-day {
+  text-align: center;
+}
+
+.selected-city {
+  text-align: center;
+  font-size: 20px;
+}
+
+.weather-icon {
+  display: block;
+  margin: 0 auto;
+  padding: 0px 20px;
+  font-size: 60px;
+}
+.current-degree {
+  text-align: center;
+  font-size: 18px;
+}
+
+.temperature {
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.forecast {
+  text-align: center;
+}
+
+.credits {
+  text-align: center;
+}
+.card {
+  background-color: transparent;
+  padding-top: 30px;
+}
+
+#current-location-btn {
+  font-size: 30px;
+  margin: 15px 40px;
+}
+
+body {
+  font-family: "Comfortaa", cursive;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  padding-top: 28px;
+}
