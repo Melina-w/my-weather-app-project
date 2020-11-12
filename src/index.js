@@ -1,3 +1,6 @@
+let API_KEY = "49e74429d3a2f98000aa1a8e998c37eb";
+let API_URL = "https://api.openweathermap.org/data/2.5/weather";
+
 let now = new Date();
 let currentDate = document.querySelector("#current-date");
 let currentTime = document.querySelector("#current-time");
@@ -56,9 +59,8 @@ function changeCityName(event) {
   let units = "metric";
   let cityName = formInput.value.trim();
   if (cityName !== "") {
-    let apiKey = "49e74429d3a2f98000aa1a8e998c37eb";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${apiKey}`;
-    axios.get(`${apiUrl}`).then(updateCurrentWeather);
+    let apiUrl = `${API_URL}?q=${cityName}&units=${units}&appid=${API_KEY}`;
+    axios.get(apiUrl).then(updateCurrentWeather);
   }
 }
 
@@ -92,11 +94,9 @@ function updateCurrentLocation(currentPosition) {
 
   let long = currentPosition.coords.longitude;
   let units = "metric";
-  let apiKey = "49e74429d3a2f98000aa1a8e998c37eb";
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather";
-  let apiUrl = `${apiEndpoint}?lat=${lat}&lon=${long}`;
+
   axios
-    .get(`${apiUrl}&units=${units}&appid=${apiKey}`)
+    .get(`${API_URL}?lat=${lat}&lon=${long}&units=${units}&appid=${API_KEY}`)
     .then(updateCurrentWeather);
 }
 function findCurrentLocation() {
