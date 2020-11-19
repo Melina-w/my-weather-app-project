@@ -1,7 +1,7 @@
 .weather-box {
   border: 1px solid #b3a5b3;
   border-radius: 5px;
-  padding-top: 15px;
+  padding: 15px 0;
 }
 
 .search {
@@ -56,12 +56,14 @@
   text-align: center;
 }
 
-.credits {
-  text-align: center;
-}
-.card {
+.forecast > .card {
   background-color: transparent;
   padding-top: 30px;
+  margin-right: 10px;
+}
+
+.credits {
+  text-align: center;
 }
 
 #current-location-btn {

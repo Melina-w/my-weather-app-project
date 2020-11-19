@@ -64,6 +64,11 @@ function updateCurrentWeather(response) {
   currentDescription.innerHTML = response.data.weather[0].description;
   let currentCity = document.querySelector("#current-city");
   currentCity.innerHTML = response.data.name;
+  let iconElement = document.querySelector("#current-weather-icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/10d@2x.png`
+  );
 }
 function changeCityName(event) {
   event.preventDefault();
