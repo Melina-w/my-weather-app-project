@@ -115,3 +115,6 @@ function updateCurrentLocation(currentPosition) {
 function findCurrentLocation() {
   navigator.geolocation.getCurrentPosition(updateCurrentLocation);
 }
+
+//loading weather for current location when page loads
+findCurrentLocation();
