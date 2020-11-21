@@ -56,12 +56,17 @@
   text-align: center;
 }
 
+/* add css to all cards inside the forecast */
 .forecast > .card {
   background-color: transparent;
   padding-top: 30px;
   margin-right: 10px;
 }
 
+#search-form button {
+  background-color: transparent;
+  border: none;
+}
 .credits {
   text-align: center;
 }

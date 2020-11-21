@@ -31,13 +31,22 @@
         <div class="container weather-box">
           <div class="row">
             <div class="search offset-1">
-              <input
-                type="search"
-                placeholder="Enter City."
-                id="search-form-input"
-              />
-
-              <i class="fas fa-search-location" id="search-btn"></i>
+              <form id="search-form">
+                <div class="row">
+                  <div class="col-10">
+                    <input
+                      type="search"
+                      placeholder="Enter City."
+                      id="search-form-input"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <button type="submit">
+                      <i class="fas fa-search-location"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
             <i class="fas fa-map-marker-alt" id="current-location-btn"></i>
           </div>
@@ -62,7 +71,7 @@
                   <p id="current-time">6:01 PM</p>
                 </div>
                 <div class="col-6 current-degree">
-                  <img class="weather-icon" id="current-weather-icon"></img>
+                  <img src="#" class="weather-icon" id="current-weather-icon" />
                   <span class="temperature">
                     <span id="current-degrees">20</span>
                     <a href="#" id="celsius">°C</a> /

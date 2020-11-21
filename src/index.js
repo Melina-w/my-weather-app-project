@@ -1,8 +1,8 @@
 let API_KEY = "49e74429d3a2f98000aa1a8e998c37eb";
 let API_URL = "https://api.openweathermap.org/data/2.5/weather";
 
-let button = document.querySelector("#search-btn");
-button.addEventListener("click", changeCityName);
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", changeCityName);
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeToCelsius);
@@ -71,7 +71,9 @@ function updateCurrentWeather(response) {
   );
 }
 function changeCityName(event) {
+  console.log(event);
   event.preventDefault();
+
   let formInput = document.querySelector("#search-form-input");
   let units = "metric";
   let cityName = formInput.value.trim();
