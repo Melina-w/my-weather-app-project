@@ -67,9 +67,12 @@ function updateCurrentWeather(response) {
   let iconElement = document.querySelector("#current-weather-icon");
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/10d@2x.png`
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  // reset form after updating current weather to clear the search box.
+  document.getElementById("search-form").reset();
 }
+
 function changeCityName(event) {
   console.log(event);
   event.preventDefault();
