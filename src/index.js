@@ -114,6 +114,7 @@ function updateForecastWeather(response) {
       forecastDayMax.innerHTML = `Max: ${Math.round(dataDay.main.temp_max)} °C`;
       let forecastDayDescription = document.createElement("p");
       forecastDayDescription.classList.add("cards-text");
+      forecastDayDescription.classList.add("capitalize");
       forecastDayDescription.innerHTML = dataDay.weather[0].description;
 
       //Appending elements in order

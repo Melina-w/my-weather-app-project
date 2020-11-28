@@ -84,6 +84,10 @@
   margin: 15px 40px;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 body {
   font-family: "Comfortaa", cursive;
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
