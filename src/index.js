@@ -1,5 +1,5 @@
 let API_KEY = "49e74429d3a2f98000aa1a8e998c37eb";
-let API_URL = "https://api.openweathermap.org/data/2.5/weather";
+let API_URL = "https://api.openweathermap.org/data/2.5";
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", changeCityName);
@@ -55,7 +55,9 @@ currentTime.innerHTML = `${hour}: ${minutes}`;
 function updateCurrentWeather(response) {
   console.log(response);
   let degrees = document.querySelector("#current-degrees");
-  degrees.innerHTML = Math.round(response.data.main.temp);
+  celsiusTemperature = response.data.main.temp;
+  degrees.innerHTML = Math.round(celsiusTemperature);
+
   let currentWind = document.querySelector("#current-wind");
   currentWind.innerHTML = Math.round(response.data.wind.speed);
   let currentHumidity = document.querySelector("#current-humidity");
@@ -72,6 +74,60 @@ function updateCurrentWeather(response) {
   // reset form after updating current weather to clear the search box.
   document.getElementById("search-form").reset();
 }
+function updateForecastWeather(response) {
+  console.log(response.data.list);
+  let forecast = document.querySelector("#forecast");
+  forecast.innerHTML = "";
+
+  let firstItem = response.data.list[0];
+  let date = new Date(firstItem.dt * 1000);
+  let currentDay = date.getDay();
+  let addedDay = false;
+  response.data.list.forEach(function (dataDay) {
+    let date = new Date(dataDay.dt * 1000);
+    let day = date.getDay();
+    if (day !== currentDay) {
+      console.log(days[date.getDay()]);
+      currentDay = day;
+
+      let forecastDay = document.createElement("div");
+      forecastDay.classList.add("card");
+      forecastDay.classList.add("col-12");
+      forecastDay.classList.add("col-lg-2");
+
+      if (addedDay === false) {
+        forecastDay.classList.add("offset-lg-1");
+      }
+      let forecastDayBody = document.createElement("div");
+      forecastDayBody.classList.add("card-body");
+      let forecastDayIcon = document.createElement("img");
+      forecastDayIcon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${dataDay.weather[0].icon}@2x.png`
+      );
+      let forecastDayTitle = document.createElement("h5");
+      forecastDayTitle.classList.add("card-title");
+      forecastDayTitle.innerHTML = days[date.getDay()];
+      let forecastDayMin = document.createElement("p");
+      forecastDayMin.innerHTML = `Min: ${Math.round(dataDay.main.temp_min)} °C`;
+      let forecastDayMax = document.createElement("p");
+      forecastDayMax.innerHTML = `Max: ${Math.round(dataDay.main.temp_max)} °C`;
+      let forecastDayDescription = document.createElement("p");
+      forecastDayDescription.classList.add("cards-text");
+      forecastDayDescription.innerHTML = dataDay.weather[0].description;
+
+      //Appending elements in order
+      forecastDayBody.appendChild(forecastDayIcon);
+      forecastDayBody.appendChild(forecastDayMin);
+      forecastDayBody.appendChild(forecastDayMax);
+      forecastDayBody.appendChild(forecastDayDescription);
+      forecastDay.appendChild(forecastDayTitle);
+      forecastDay.appendChild(forecastDayBody);
+      forecast.appendChild(forecastDay);
+      addedDay = true;
+    }
+  });
+}
 
 function changeCityName(event) {
   console.log(event);
@@ -81,8 +137,10 @@ function changeCityName(event) {
   let units = "metric";
   let cityName = formInput.value.trim();
   if (cityName !== "") {
-    let apiUrl = `${API_URL}?q=${cityName}&units=${units}&appid=${API_KEY}`;
+    let apiUrl = `${API_URL}/weather?q=${cityName}&units=${units}&appid=${API_KEY}`;
     axios.get(apiUrl).then(updateCurrentWeather);
+    let apiForecastUrl = `${API_URL}/forecast?q=${cityName}&units=${units}&appid=${API_KEY}`;
+    axios.get(apiForecastUrl).then(updateForecastWeather);
   }
 }
 
@@ -90,31 +148,40 @@ function changeCityName(event) {
 function changeToCelsius(event) {
   event.preventDefault();
   let degrees = document.querySelector("#current-degrees");
-  degrees.innerHTML = "20";
+  fahrenheitLink.classList.remove("active");
+  celsius.classList.add("active");
+  degrees.innerHTML = Math.round(celsiusTemperature);
 }
 
 function convertToFahrenheit(event) {
   event.preventDefault();
   let degrees = document.querySelector("#current-degrees");
+  celsius.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   let currentDegrees = degrees.innerHTML;
   currentDegrees = Number(currentDegrees);
-  degrees.innerHTML = Math.round((currentDegrees * 9) / 5 + 32);
+  degrees.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
 }
 
 //Next challenge
 function updateCurrentLocation(currentPosition) {
   let lat = currentPosition.coords.latitude;
-
   let long = currentPosition.coords.longitude;
   let units = "metric";
 
   axios
-    .get(`${API_URL}?lat=${lat}&lon=${long}&units=${units}&appid=${API_KEY}`)
+    .get(
+      `${API_URL}/weather?lat=${lat}&lon=${long}&units=${units}&appid=${API_KEY}`
+    )
     .then(updateCurrentWeather);
+  let apiForecastUrl = `${API_URL}/forecast?lat=${lat}&lon=${long}&units=${units}&appid=${API_KEY}`;
+  axios.get(apiForecastUrl).then(updateForecastWeather);
 }
 function findCurrentLocation() {
   navigator.geolocation.getCurrentPosition(updateCurrentLocation);
 }
+
+let celsiusTemperature = null;
 
 //loading weather for current location when page loads
 findCurrentLocation();
