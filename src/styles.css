@@ -44,7 +44,6 @@
 .weather-icon {
   display: block;
   margin: 0 auto;
-  padding: 0px 20px;
   font-size: 60px;
 }
 .current-degree {
@@ -55,7 +54,6 @@
 .temperature {
   display: block;
   margin: 0 auto;
-  margin-top: 20px;
 }
 
 .forecast {
@@ -88,8 +86,7 @@
 
 body {
   font-family: "Comfortaa", cursive;
-  /* background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); */
-  padding-top: 28px;
+  padding: 28px 10px 0px 10px;
 }
 
 .good-weather-background {
