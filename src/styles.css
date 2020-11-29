@@ -90,6 +90,14 @@
 
 body {
   font-family: "Comfortaa", cursive;
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  /* background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); */
   padding-top: 28px;
+}
+
+.good-weather-background {
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  columns: #333333;
+}
+.bad-weather-background {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }

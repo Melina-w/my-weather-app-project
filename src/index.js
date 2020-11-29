@@ -57,13 +57,22 @@ function updateCurrentWeather(response) {
   let degrees = document.querySelector("#current-degrees");
   celsiusTemperature = response.data.main.temp;
   degrees.innerHTML = Math.round(celsiusTemperature);
-
+  let description = response.data.weather[0].description;
   let currentWind = document.querySelector("#current-wind");
   currentWind.innerHTML = Math.round(response.data.wind.speed);
   let currentHumidity = document.querySelector("#current-humidity");
   currentHumidity.innerHTML = Math.round(response.data.main.humidity);
   let currentDescription = document.querySelector("#current-description");
-  currentDescription.innerHTML = response.data.weather[0].description;
+  currentDescription.innerHTML = description;
+  let body = document.querySelector("body");
+  if (description === "clear sky") {
+    body.classList.remove("bad-weather-background");
+    body.classList.add("good-weather-background");
+  } else {
+    body.classList.remove("good-weather-background");
+    body.classList.add("bad-weather-background");
+  }
+
   let currentCity = document.querySelector("#current-city");
   currentCity.innerHTML = response.data.name;
   let iconElement = document.querySelector("#current-weather-icon");
