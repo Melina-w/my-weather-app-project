@@ -64,6 +64,7 @@ function updateCurrentWeather(response) {
   currentHumidity.innerHTML = Math.round(response.data.main.humidity);
   let currentDescription = document.querySelector("#current-description");
   currentDescription.innerHTML = description;
+  //Updating background color depending on the weather description. (like google does).
   let body = document.querySelector("body");
   if (description === "clear sky") {
     body.classList.remove("bad-weather-background");
@@ -89,21 +90,22 @@ function updateForecastWeather(response) {
   forecast.innerHTML = "";
 
   let firstItem = response.data.list[0];
+  //dt is in seconds & new date needs miliseconds.
   let date = new Date(firstItem.dt * 1000);
   let currentDay = date.getDay();
   let addedDay = false;
   response.data.list.forEach(function (dataDay) {
     let date = new Date(dataDay.dt * 1000);
     let day = date.getDay();
+    //check if the day changed to skip repeated days in the response.
     if (day !== currentDay) {
-      console.log(days[date.getDay()]);
       currentDay = day;
 
       let forecastDay = document.createElement("div");
       forecastDay.classList.add("card");
       forecastDay.classList.add("col-12");
       forecastDay.classList.add("col-lg-2");
-
+      // Add offset style only on the first day to have some margin.
       if (addedDay === false) {
         forecastDay.classList.add("offset-lg-1");
       }
