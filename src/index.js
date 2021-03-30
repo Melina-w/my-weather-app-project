@@ -94,7 +94,7 @@ function updateForecastWeather(response) {
   let date = new Date(firstItem.dt * 1000);
   let currentDay = date.getDay();
   let addedDay = false;
- 0 {
+  {
     let date = new Date(dataDay.dt * 1000);
     let day = date.getDay();
     //check if the day changed to skip repeated days in the response.
@@ -138,7 +138,7 @@ function updateForecastWeather(response) {
       forecast.appendChild(forecastDay);
       addedDay = true;
     }
-  });
+  }
 }
 
 function changeCityName(event) {
