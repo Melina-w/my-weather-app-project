@@ -88,57 +88,61 @@ function updateForecastWeather(response) {
   console.log(response.data.list);
   let forecast = document.querySelector("#forecast");
   forecast.innerHTML = "";
+  let cardDeck = document.createElement("div");
+  cardDeck.classList.add("card-deck");
 
   let firstItem = response.data.list[0];
   //dt is in seconds & new date needs miliseconds.
   let date = new Date(firstItem.dt * 1000);
   let currentDay = date.getDay();
-  let addedDay = false;
-  {
+
+  response.data.list.forEach(function (dataDay) {
     let date = new Date(dataDay.dt * 1000);
     let day = date.getDay();
     //check if the day changed to skip repeated days in the response.
     if (day !== currentDay) {
+      console.log(day);
       currentDay = day;
 
       let forecastDay = document.createElement("div");
       forecastDay.classList.add("card");
-      forecastDay.classList.add("col-12");
-      forecastDay.classList.add("col-lg-2");
-      // Add offset style only on the first day to have some margin.
-      if (addedDay === false) {
-        forecastDay.classList.add("offset-lg-1");
-      }
-      let forecastDayBody = document.createElement("div");
-      forecastDayBody.classList.add("card-body");
+
       let forecastDayIcon = document.createElement("img");
       forecastDayIcon.setAttribute(
         "src",
         `http://openweathermap.org/img/wn/${dataDay.weather[0].icon}@2x.png`
       );
-      let forecastDayTitle = document.createElement("h5");
-      forecastDayTitle.classList.add("card-title");
-      forecastDayTitle.innerHTML = days[date.getDay()];
-      let forecastDayMin = document.createElement("p");
-      forecastDayMin.innerHTML = `Min: ${Math.round(dataDay.main.temp_min)} °C`;
-      let forecastDayMax = document.createElement("p");
-      forecastDayMax.innerHTML = `Max: ${Math.round(dataDay.main.temp_max)} °C`;
-      let forecastDayDescription = document.createElement("p");
-      forecastDayDescription.classList.add("cards-text");
-      forecastDayDescription.classList.add("capitalize");
-      forecastDayDescription.innerHTML = dataDay.weather[0].description;
+      forecastDayIcon.classList.add("weather-icon");
 
-      //Appending elements in order
-      forecastDayBody.appendChild(forecastDayIcon);
-      forecastDayBody.appendChild(forecastDayMin);
-      forecastDayBody.appendChild(forecastDayMax);
-      forecastDayBody.appendChild(forecastDayDescription);
-      forecastDay.appendChild(forecastDayTitle);
-      forecastDay.appendChild(forecastDayBody);
-      forecast.appendChild(forecastDay);
-      addedDay = true;
+      let cardBody = document.createElement("div");
+      cardBody.classList.add("card-body");
+
+      let cardTitle = document.createElement("h5");
+      cardTitle.classList.add("card-title");
+      cardTitle.innerHTML = days[date.getDay()];
+
+      let Min = document.createElement("span");
+      Min.innerHTML = `Min:${Math.round(dataDay.main.temp_min)} °C`;
+
+      let Max = document.createElement("span");
+      Max.innerHTML = `Max:${Math.round(dataDay.main.temp_max)} °C`;
+
+      let Description = document.createElement("span");
+      Description.classList.add("capitalize");
+
+      Description.innerHTML = dataDay.weather[0].description;
+
+      forecastDay.appendChild(forecastDayIcon);
+      forecastDay.appendChild(cardBody);
+      forecastDay.appendChild(cardTitle);
+      forecastDay.appendChild(Min);
+      forecastDay.appendChild(Max);
+      forecastDay.appendChild(Description);
+
+      cardDeck.appendChild(forecastDay);
     }
-  }
+  });
+  forecast.appendChild(cardDeck);
 }
 
 function changeCityName(event) {

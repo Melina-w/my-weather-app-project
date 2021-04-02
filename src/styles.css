@@ -96,3 +96,11 @@ body {
 .bad-weather-background {
   background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
 }
+
+.card-deck {
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
